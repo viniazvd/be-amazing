@@ -1,6 +1,6 @@
 <template>
-  <div id="user">
-
+  <div>
+		cadastrar
   </div>
 </template>
 

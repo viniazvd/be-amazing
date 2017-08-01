@@ -1,35 +1,30 @@
 <template>
-  <div>
+	<div>
+		
+		<my-menu :routes="routes"/>
 
-		{{ titulo }}
-
-		<ul>
-			<li v-for="user of users">
-				{{ user.name }} {{ user.email }}
-			</li>
-		</ul>
-
-  </div>
+		<router-view></router-view> 
+	</div>
 </template>
 
 <script>
-export default {
+	import { routes } from './routes'
+	import Menu from './components/shared/menu/Menu.vue'
 
-  data () {
-    return {
-			titulo: 'opa',
-			users: []
-    }
-  }, 
-	created() {
+  export default {
 
-		this.$http.get('http://localhost:3000/users/') 
-			.then( res => res.json())
-			.then( users => this.users = users ) 
+		components: {
+			'my-menu': Menu
+		},
+
+		data() {
+			return {
+				routes: routes
+			}
+		}
 	}
-}
 </script>
 
 <style>
-
+	
 </style>
