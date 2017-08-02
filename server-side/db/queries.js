@@ -18,6 +18,6 @@ module.exports = {
   },
 
   delete( id ) {
-    return db( 'users').where( 'id', id ).del()
+    return db( 'users' ).where( 'id', id ).del()
   }
 }

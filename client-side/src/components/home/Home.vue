@@ -1,5 +1,6 @@
 <template>
 	<div>
+		<p v-show="mensagem">{{ mensagem }}</p>
 		<input type="search" class="filtro" v-on:input="filtro = $event.target.value" placeholder="Digite um usuário">
 		{{ filtro }}
 		<ul>
@@ -8,7 +9,7 @@
 				<table-standard :titulo="user.name">
 					{{ user.email }} - {{ user.age }}
 
-					<button-delete tipo="button" rotulo="Deletar" /> 
+					<button-delete tipo="button" value="Deletar" @eventoDisparado="remove(user)" /> 
 
 				</table-standard>
 
@@ -20,6 +21,7 @@
 <script>
 	import Standard from '../shared/data-tables/Standard.vue';
 	import Delete from '../shared/buttons/Delete.vue';
+	import UserService from '../../services/UserService'
 
   export default {
 
@@ -32,7 +34,8 @@
       return {
 				titulo: 'be-amazing',
 				users: [],
-				filtro: ''
+				filtro: '',
+				mensagem: ''
 			}
     },
 
@@ -47,10 +50,23 @@
 			}
 		},
 
+		methods: {
+			remove( user ) {
+				this.service.deletar( user.id )
+						.then( () => {
+							const indice = this.users.indexOf( user )
+							this.users.splice( indice, 1 )
+							this.mensagem = 'Usuário removido com sucesso'
+						}, err => console.log( err ) )
+			}
+		},
+
 		created() {
-			this.$http.get( 'http://localhost:3000/users/' )
-				 	.then( res => res.json() )
-					.then( user => this.users = user )
+			this.service = new UserService( this.$resource )
+
+			this.service
+					.listar()
+					.then( user => this.users = user, err => console.log( err ) )
 		} 
   }
 </script>

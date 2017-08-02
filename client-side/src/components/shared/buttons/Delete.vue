@@ -1,10 +1,18 @@
 <template>
-	<button class="botao botao-perigo" :type="tipo">{{ rotulo }}</button>
+	<button @click="disparaEvento()" class="botao botao-perigo" :type="tipo">{{ value }}</button>
 </template>
 
 <script>
 export default { 
-	props: [ 'tipo', 'rotulo' ]
+	props: [ 'tipo', 'value' ],
+
+	methods: {
+		disparaEvento() {
+			if ( confirm( 'Tem certeza que deseja deletar esse usuário?' )  ) {
+				this.$emit('eventoDisparado')
+			}
+		}
+	}
 }
 </script>
 
