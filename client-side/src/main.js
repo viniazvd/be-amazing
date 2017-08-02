@@ -13,7 +13,10 @@ Vue.http.options.root = 'http://localhost:3000'
 
 Vue.use( VueRouter )
 
-const router = new VueRouter({ routes })
+const router = new VueRouter({ 
+	routes: routes,
+	mode: 'history'
+})
 
 new Vue({
   el: '#app',
