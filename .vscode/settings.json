@@ -1,6 +1,11 @@
 // Place your settings in this file to overwrite default and user settings.
 {
 	"files.associations": {
-			"*.vue": "html"
-		}
+			"*.vue": "vue"
+		},
+
+	"emmet.syntaxProfiles": {
+		"vue-html": "html",
+		"vue": "html"
+	}
 }
