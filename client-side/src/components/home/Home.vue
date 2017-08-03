@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<p v-show="mensagem">{{ mensagem }}</p>
+		<p v-show="mensagem" class="centralizado">{{ mensagem }}</p>
 		<input type="search" class="filtro" v-on:input="filtro = $event.target.value" placeholder="Digite um usuário">
 		{{ filtro }}
 		<ul>
@@ -62,7 +62,7 @@
 							const indice = this.users.indexOf( user )
 							this.users.splice( indice, 1 )
 							this.mensagem = 'Usuário removido com sucesso'
-						}, err => console.log( err ) )
+						}, err => this.mensagem = err.message )
 			}
 		},
 
@@ -71,7 +71,7 @@
 
 			this.service
 					.listar()
-					.then( user => this.users = user, err => console.log( err ) )
+					.then( user => this.users = user, err => this.mensagem = err.message )
 		} 
   }
 </script>
@@ -80,5 +80,8 @@
 	.filtro {
 		display: block;
 		width: 100%;
+	}
+	.centralizado {
+		text-align: center;
 	}
 </style>
